@@ -1,8 +1,7 @@
-##**My Hyprland Dotfiles Collection**
+## My Hyprland Dotfiles Collection
 
 This repo contains all my configurations for a Hyprland-based setup in Arch Linux.
 
----
 
 ## 🛠️ Prerequisites
 
@@ -17,11 +16,16 @@ sudo pacman -S \
   swww
 ```
 
----
+Also, make a directory named `~/Pictures/wallpapers` and add some wallpapers in there for the swww script to work.
+
+```bash
+mkdir -p ~/Pictures/wallpapers
+```
+
 
 ## 📦 Using GNU Stow
 
-To keep things tidy, I've structured the repo so you can manage your dotfiles with [GNU Stow](https://www.gnu.org/software/stow/). If you don't know what GNU Stow is, it's basically an easy way to symlink your configs into `~/.config/` effortlessly!
+The repo is structured for your dotfiles to be managed with [GNU Stow](https://www.gnu.org/software/stow/). If you don't know what GNU Stow is, it's basically an easy way to symlink your configs into `~/.config/` effortlessly.
 
 
 To download GNU Stow:
@@ -29,7 +33,6 @@ To download GNU Stow:
 sudo pacman -S stow
 ```
 
----
 
 ## 📥 Cloning the Repo
 
@@ -37,11 +40,10 @@ It is **very important** to clone this repository directly into your **home dire
 
 ```bash
 cd ~
-git clone https://github.com/Cards29/arch-hyprland-config.git
-cd ""
+git clone https://github.com/Cards29/hyprland-arch-Cards29.git
+cd "hyprland-arch-Cards29"
 ```
 
----
 
 
 ## 🚀 Stow Commands
@@ -49,21 +51,13 @@ cd ""
 Once you’ve cloned this repo, cd into it and run Stow for the components you want:
 
 ```bash
-# In your dotfiles root directory:
-
-# Hyprland config
 stow hyprland
-
-# Waybar config
 stow waybar
-
-# Kitty terminal config
 stow kitty
 ```
 
-For **Rofi**, please follow the  [adi1090x/rofi](https://github.com/adi1090x/rofi) repository for themes and additional setup!
+For **Rofi**, please follow the  [adi1090x/rofi](https://github.com/adi1090x/rofi) repository.
 
----
 
 ## 🌄 Changing Wallpapers with Swww
 
@@ -71,10 +65,10 @@ Use the `swww_random_wallpaper.sh` script in the **Scripts/** folder. Add it to 
 
 ```ini
 # Example in your Hyprland keybinds (e.g., hyprland.conf)
-bind = SUPER, w, exec, $HOME/dotfiles/Scripts/swww_random_wallpaper.sh
+bind = SUPER, w, exec, $HOME/hyprland-arch-Cards29/Scripts/swww_random_wallpaper.sh
 ```
 
-Now you can hit **Super + W** to refresh your background instantly!
+Now you can hit **Super + W** to refresh your background instantly.
 
 ---
 
