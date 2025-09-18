@@ -12,7 +12,7 @@ sudo pacman -S \
   hyprland \
   waybar \
   kitty \
-  rofi-wayland \
+  rofi \
   swww
 ```
 
