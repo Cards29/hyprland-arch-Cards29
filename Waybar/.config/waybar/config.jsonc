@@ -1,148 +1,139 @@
+// --- Waybar Configuration for Arch Hyprland ---
 {
-    "layer": "top",
-    "position": "top",
-    "mode": "dock",
-    "exclusive": true,
-    "passthrough": false,
-    "gtk-layer-shell": true,
-    "height": 0,
-    "modules-left": [
-        "clock"
-    ],
-    "modules-center": [
-	"hyprland/workspaces"
-    ],
-    "modules-right": [
-        "tray",
-        //"memory",
-        //"cpu",
-        "network",
-        "battery",
-        "backlight",
-        "pulseaudio",
-        "pulseaudio#microphone"
-    ],
+  // --- Bar placement & behavior ---
+  "layer": "top",
+  "position": "top",
+  "height": 32, // Standard height for a clean look
+  "exclusive": true,
+  "gtk-layer-shell": true,
+  // Margin to place the bar slightly away from screen edges
+  "margin-top": 4,
+  "margin-left": 4,
+  "margin-right": 4,
+  "spacing": 0, // No extra spacing between modules themselves in the config, CSS handles it
 
-    "hyprland/window": {
-        "format": "󰣇"
-    },
-    
-    "hyprland/workspaces": {
-        "disable-scroll": true,
-        "all-outputs": true,
-        "on-click": "activate"
-        //"format": "{icon}",
-    },
+  // --- Modules Layout -----------------------------------------------------
+  "modules-left":   ["hyprland/workspaces", "hyprland/window"], // Workspaces on the left, followed by the active window
+  "modules-center": ["clock"], // Clock prominently in the center
+  "modules-right":  [
+    //"pulseaudio#microphone", // Microphone before master volume
+    "pulseaudio",
+    "backlight",
+    "network",
+    "battery"
+    //"tray" // Tray usually goes last on the right
+  ],
 
-    "tray": {
-        "icon-size": 13,
-        "spacing": 10
+  // --- Hyprland Workspaces ------------------------------------------------
+  "hyprland/workspaces": {
+    "all-outputs": true,
+    "disable-scroll": true,
+    "on-click": "activate",
+    "format": "{icon}", // Use icons for workspaces (defined in CSS via button classes)
+    "format-icons": {
+      "active": "", // Active workspace icon (filled circle)
+      "default": "", // Inactive workspace icon (empty circle)
+      "urgent": "", // Urgent workspace icon (exclamation triangle)
+      "empty": "" // Empty workspace icon (empty circle)
     },
-
-    "clock": {
-        "format": "{:%A    %B-%d-%Y    %H:%M:%S}",
-        "interval": 1,
-        "rotate": 0,
-        "tooltip-format": "<tt>{calendar}</tt>",
-        "calendar": {
-            "mode": "month",
-            "mode-mon-col": 3,
-            "on-scroll": 1,
-            "on-click-right": "mode",
-            "format": {
-                "months": "<span color='#a6adc8'><b>{}</b></span>",
-                "weekdays": "<span color='#a6adc8'><b>{}</b></span>",
-                "today": "<span color='#a6adc8'><b>{}</b></span>",
-                "days": "<span color='#555869'><b>{}</b></span>"
-            }
-        }
-    },
-
-    "backlight": {
-        "device": "intel_backlight",
-        "format": "{icon} {percent}%",
-        "format-icons": ["󰃞", "󰃟", "󰃠"],
-        "on-scroll-up": "brightnessctl set 1%+",
-        "on-scroll-down": "brightnessctl set 1%-",
-        "min-length": 6
-    },
-
-    "battery": {
-        "states": {
-            "good": 95,
-            "warning": 30,
-            "critical": 20
-        },
-        "format": "{icon} {capacity}%",
-        "format-charging": " {capacity}%",
-        "format-plugged": " {capacity}%",
-        "format-alt": "{time} {icon}",
-        "format-icons": ["󰂃", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
-    },
-
-    "pulseaudio": {
-        "format": "{icon}  {volume}%",
-        "tooltip": false,
-        "format-muted": "  Muted",
-        "on-click": "pamixer -t",
-        "on-scroll-up": "pamixer -i 1",
-        "on-scroll-down": "pamixer -d 1",
-        "scroll-step": 5,
-        "format-icons": {
-            "headphone": "",
-            "hands-free": "",
-            "headset": "",
-            "phone": "",
-            "portable": "",
-            "car": "",
-            "default": ["","", "", ""]
-        }
-    },
-
-    "pulseaudio#microphone": {
-        "format": "{format_source}",
-        "format-source": " {volume}%",
-        "format-source-muted": "  Muted",
-        "on-click": "pamixer --default-source -t",
-        "on-scroll-up": "pamixer --default-source -i 5",
-        "on-scroll-down": "pamixer --default-source -d 5",
-        "scroll-step": 5
-    },
-
-    "memory": {
-        "states": {
-            "c": 90, // critical
-            "h": 60, // high
-            "m": 30 // medium
-        },
-        "interval": 10,
-        "format": "󰾆 {used}GB",
-        "format-m": "󰾅 {used}GB",
-        "format-h": "󰓅 {used}GB",
-        "format-c": " {used}GB",
-        "format-alt": "󰾆 {percentage}%",
-        "max-length": 10,
-        "tooltip": true,
-        "tooltip-format": "󰾆 {percentage}%\n {used:0.1f}GB/{total:0.1f}GB"
-    },
-
-    "cpu": {
-        "interval": 10,
-        "format": "󰍛 {usage}%",
-        "format-alt": "{icon0}{icon1}{icon2}{icon3}",
-        "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"]
-    },
-
-    "network": {
-        "tooltip": true,
-        "format-wifi": "  {essid}",
-        "format-ethernet": "󰈀 ",
-        "tooltip-format": "Network: <big><b>{essid}</b></big>\nSignal strength: <b>{signaldBm}dBm ({signalStrength}%)</b>\nFrequency: <b>{frequency}MHz</b>\nInterface: <b>{ifname}</b>\nIP: <b>{ipaddr}/{cidr}</b>\nGateway: <b>{gwaddr}</b>\nNetmask: <b>{netmask}</b>",
-        "format-linked": "󰈀 {ifname} (No IP)",
-        "format-disconnected": "󰖪 ",
-        "tooltip-format-disconnected": "Disconnected",
-        "format-alt": "<span foreground='#99ffdd'> {bandwidthDownBytes}</span> <span foreground='#ffcc66'> {bandwidthUpBytes}</span>",
-        "interval": 2
+    // Example for persistent workspaces across multiple monitors.
+    // Adjust "DP-1" and "HDMI-A-1" to match your monitor names (e.g., from `hyprctl monitors`).
+    "persistent_workspaces": {
+      "DP-1": ["1", "2", "3", "4", "5"],
+      "HDMI-A-1": ["6", "7", "8", "9", "10"]
     }
-}
+  },
 
+  // --- Hyprland Window Title ----------------------------------------------
+  "hyprland/window": {
+    "format": " 󰣇  {}", // Icon followed by the window title
+    "max-length": 50, // Prevent extremely long titles from pushing other modules off-screen
+    "tooltip": true
+  },
+
+  // --- Clock --------------------------------------------------------------
+  "clock": {
+    "interval": 1,
+    //"format": "<span foreground='#f5c2e7'>   </span>{:%a %d %H:%M}"
+    "format": " {:%H:%M | %b %d}",
+    "tooltip-format": "<big>{:%A, %B %d, %Y}</big>\n<small>{calendar}</small>", // Detailed tooltip for full date
+    "calendar": {
+      "mode": "month",
+      "mode-mon-col": 3,
+      "on-scroll": 1,
+      "on-click-right": "mode",
+      "format": {
+        "months":   "<span color='#89b4fa'><b>{}</b></span>", // Blue for months
+        "weekdays": "<span color='#a6e3a1'><b>{}</b></span>", // Green for weekdays
+        "today":    "<span color='#f38ba8'><b>{}</b></span>", // Red/Pink for today
+        "days":     "<span color='#cdd6f4'>{}</span>" // Default text color for days
+      }
+    }
+  },
+
+  // --- Backlight ----------------------------------------------------------
+  "backlight": {
+    "device": "intel_backlight", // Or your specific backlight device
+    "format": "{icon} {percent}%",
+    "format-icons": ["󰃞", "󰃟", "󰃠"], // Low to high brightness
+    "on-scroll-up": "brightnessctl set 5%+",
+    "on-scroll-down": "brightnessctl set 5%-"
+  },
+
+  // --- Battery ------------------------------------------------------------
+  "battery": {
+    "states": {
+      "good": 90,
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{icon} {capacity}%",
+    "format-charging": " {capacity}%",
+    "format-plugged":  " {capacity}%", // Different icon for plugged in but not charging
+    "format-alt": "{time} {icon}", // Show time remaining when alt-clicked
+    "format-full": "  Full", // When battery is full
+    "format-icons": [
+      "󰁺","󰁻","󰁼","󰁽","󰁾", // 0-50%
+      "󰁿","󰂀","󰂁","󰂂","󰁹"  // 60-100% (and full)
+    ],
+    "tooltip": true,
+    "interval": 30 // Check battery status every 30 seconds
+  },
+
+  // --- Audio (Pulseaudio/Pipewire) ----------------------------------------
+  "pulseaudio": {
+    "format": "{icon} {volume}%",
+    "format-muted": "󰝟  Muted",
+    "on-click": "pamixer -t", // Toggle mute
+    "on-scroll-up": "pamixer -i 5", // Increase volume
+    "on-scroll-down": "pamixer -d 5", // Decrease volume
+    "format-icons": ["","",""], // Muted, low, high volume
+    "tooltip": true
+  },
+
+  "pulseaudio#microphone": {
+    "format": " {volume}%",
+    "format-source-muted": "  Muted",
+    "on-click": "pamixer --default-source -t", // Toggle microphone mute
+    "on-scroll-up": "pamixer --default-source -i 5", // Increase mic volume
+    "on-scroll-down": "pamixer --default-source -d 5", // Decrease mic volume
+    "tooltip": true
+  },
+
+  // --- Network ------------------------------------------------------------
+  "network": {
+    "interval": 5, // Check network status every 5 seconds
+    "format-wifi": " {essid}({signalStrength}%)", // Show SSID and signal strength
+    "format-ethernet": "󰈀  {ifname}",
+    "format-disconnected": "󰖪  No Network", // More descriptive message
+    "tooltip": true,
+    "tooltip-format": "IP: {ipaddr}\n {bandwidthDownBytes}  {bandwidthUpBytes}", // Detailed tooltip
+    "on-click": "nm-connection-editor" // Open network manager for easy configuration
+  },
+
+  // --- Tray ---------------------------------------------------------------
+  "tray": {
+    "icon-size": 18,
+    "spacing": 10 // Spacing between tray icons
+  }
+}

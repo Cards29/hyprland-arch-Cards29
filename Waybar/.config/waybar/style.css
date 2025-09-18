@@ -1,123 +1,173 @@
-* {
-border: none;
-border-radius: 0;
-font-family: JetBrainsMono Nerd Font, monospace;
-font-weight: bold;
-font-size: 14px;
-min-height: 0;
-}
+/* --- Waybar Style for Arch Hyprland (Catppuccin-inspired Palette) --- */
 
+/* ---------- Palette (Catppuccin Macchiato) ---------- */
+@define-color bg      #181825; /* Base */
+@define-color surface #1e1e2e; /* Mantle */
+@define-color overlay #313244; /* Surface0 */
+@define-color text    #cdd6f4; /* Text */
+@define-color subtext #a6adc8; /* Subtext0 */
+@define-color blue    #89b4fa; /* Blue */
+@define-color green   #a6e3a1; /* Green */
+@define-color yellow  #f9e2af; /* Yellow */
+@define-color red     #f38ba8; /* Red (for critical/alert) */
+@define-color pink    #f5c2e7; /* Pink (for muted/accent) */
+@define-color lavender #babbf1; /* Lavender (for active elements) */
+@define-color mauve  #E0B0FF;
+@define-color sapphire #74c7ec;
+@define-color sky #89dceb;
+
+/* ---------- Bar Window Styling ---------- */
 window#waybar {
-    background: rgba(21, 18, 27, 0);
-    color: #cdd6f4;
+  background-color: @bg;
+  color: @text;
+  border-radius: 0px;
+  padding: 0px 0px;
+  margin: 10;
+  border: 2px solid @blue; /* 2px width, solid style, using your @lavender color */
+  font-family: "FiraCode Nerd Font", monospace;
+  font-size: 14px;
+ /* box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);*/
 }
 
-#workspaces button {
-padding: 5px;
-color: #555869;
-margin-right: 5px;
+/* ---------- Module Layout (Flexbox) ---------- */
+.modules-left,
+.modules-center,
+.modules-right {
+  margin: 0 0px; 
+  padding: 0 8px;
 }
 
-#workspaces button.active {
-color: #a6adc8;
-}
-
-#workspaces button.focused {
-color: #a6adc8;
-background: #eba0ac;
-border-radius: 10px;
-}
-
-#workspaces button.urgent {
-color: #11111b;
-background: #a6e3a1;
-border-radius: 10px;
-}
-
-#workspaces button:hover {
-background: #cdd6f4;
-color: #11111b;
-border-radius: 10px;
-}
-
-#window,
+/* Add proper spacing and consistent padding for individual modules */
+/* Grouping similar modules for consistent styling */
+#workspaces,
 #clock,
 #battery,
 #pulseaudio,
+#pulseaudio#microphone,
 #network,
-#cpu,
-#memory,
-#workspaces,
+#backlight,
 #tray,
-#backlight {
-background: #1e1e2e;
-padding: 0px 10px;
-margin: 3px 0px;
-margin-top: 5px;
-/* border: 1px solid #181825; */
+#hyprland-window {
+  background-color: transparent; /* A common background for most modules */
+  padding: 0px 7px; /* Consistent padding for all modules */
+  margin: 0 0px; /* Spacing between modules */
 }
 
-#backlight {
-border-radius: 10px 0px 0px 10px;
+/* Specific adjustments for modules at the ends */
+.modules-left #workspaces {
+}
+.modules-right #tray {
 }
 
-#tray {
-border-radius: 10px;
-margin-right: 10px;
-}
-
+/* ---------- Workspaces ---------- */
 #workspaces {
-background: #1e1e2e;
-border-radius: 10px;
-margin-left: 10px;
-padding-right: 0px;
-padding-left: 5px;
+  padding: 0px 0px; /* Less horizontal padding for workspace buttons */
+  background-color: transparent; /* Make the background transparent for the buttons to show */
+  border-radius: 0;
+  margin-left: 0px; /* Adjust to align with bar margin */
 }
 
-#cpu {
-border-radius: 0px 10px 10px 0px;
-margin-right: 10px;
+#workspaces button {
+  background-color: transparent;
+  color: @subtext;
+  padding: 0px 10px;
+  border: none;
+  min-width: 0; /* Allow buttons to be smaller */
+  font-size: 14px; /* Larger icons for workspaces */
+  transition: all 0.2s ease-in-out; /* Smooth transitions */
 }
 
-#memory {
-border-radius: 10px 0px 0px 10px;
+#workspaces button.active {
+  background-color: transparent; /* Active workspace background */
+  color: @blue; /* Active workspace color */
 }
 
-#window {
-border-radius: 10px;
-margin-left: 60px;
-margin-right: 60px;
+#workspaces button:hover {
+  background-color: transparent;
+  color: @blue; /* Highlight on hover */
 }
 
+#workspaces button.urgent {
+  color: @red; /* Urgent workspace color */
+  background-color: transparent;
+}
+
+/* ---------- Clock ---------- */
 #clock {
-color: #a6adc8;
-border-radius: 10px 10px 10px 10px;
-margin-left: 5px;
-border-right: 0px;
+  color: @lavender;
+  font-weight: bold;
+  font-size: 13px;
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+/* ---------- Hyprland Window Title ---------- */
+#hyprland-window {
+  color: @text;
+  font-weight: normal;
+  font-style: italic;
+  /* Module container styling, no text-related width/overflow properties here */
+}
+
+/* ---------- Individual Module Colors & States ---------- */
+
+#battery {
+  color: @green;
+}
+
+#battery.warning {
+  color: @yellow;
+}
+
+#battery.critical {
+  color: @red;
+  animation-name: blink;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+#battery.charging {
+  color: @blue;
+  font-weight: 600;
+}
+
+#pulseaudio,
+#pulseaudio#microphone {
+  color: @text;
+}
+
+#pulseaudio.muted,
+#pulseaudio#microphone.source-muted {
+  color: @pink;
+  font-weight: normal;
 }
 
 #network {
-color:  #a6adc8;
-border-radius: 10px 0px 0px 10px;
-
+  color: @text;
 }
 
-#pulseaudio {
-color: #a6adc8;
-border-left: 0px;
-border-right: 0px;
+#network.disconnected {
+  color: @red;
 }
 
-#pulseaudio.microphone {
-color: #a6adc8;
-border-radius: 0px 10px 10px 0px;
-border-left: 0px;
-border-right: 0px;
-margin-right: 5px;
+#backlight {
+  color: @yellow;
 }
 
-#battery {
-color:#a6adc8;
-border-radius: 0px 10px 10px 0px;
-margin-right: 10px;
+#tray {
+  color: @text;
+  padding-right: 12px; /* Adjust for end of bar */
+}
+
+#tray > .system-tray-icon {
+    -gtk-icon-effect: none; /* Disable default GTK icon effects */
+}
+
+/* ---------- Animations ---------- */
+@keyframes blink {
+  to {
+    background-color: @red;
+    color: black;
+  }
 }
