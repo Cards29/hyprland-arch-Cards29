@@ -1,24 +1,40 @@
 /* --- Waybar Style for Arch Hyprland (Catppuccin-inspired Palette) --- */
 
-/* ---------- Palette (Catppuccin Macchiato) ---------- */
-@define-color bg      #181825; /* Base */
-@define-color surface #1e1e2e; /* Mantle */
-@define-color overlay #313244; /* Surface0 */
-@define-color text    #cdd6f4; /* Text */
-@define-color subtext #a6adc8; /* Subtext0 */
-@define-color blue    #89b4fa; /* Blue */
-@define-color green   #a6e3a1; /* Green */
-@define-color yellow  #f9e2af; /* Yellow */
-@define-color red     #f38ba8; /* Red (for critical/alert) */
-@define-color pink    #f5c2e7; /* Pink (for muted/accent) */
-@define-color lavender #babbf1; /* Lavender (for active elements) */
-@define-color mauve  #E0B0FF;
-@define-color sapphire #74c7ec;
-@define-color sky #89dceb;
+/* Catppuccin's Core 4 Colors */
+@define-color rosewater  #f5e0dc;
+@define-color flamingo   #f2c5c9;
+@define-color pink       #f5c2e7;
+@define-color mauve      #cba6f7;
+@define-color red        #f38ba8;
+@define-color maroon     #eba0ac;
+@define-color peach      #fab387;
+@define-color yellow     #f9e2af;
+@define-color green      #a6e3a1;
+@define-color teal       #94e2d5;
+@define-color sky        #89dceb;
+@define-color sapphire   #74c7ec;
+@define-color blue       #89b4fa;
+@define-color lavender   #babbf1;
+
+/* Catppuccin's Grayscale Colors (High-Contrast to Low-Contrast) */
+@define-color text       #cdd6f4;
+@define-color subtext1   #bac2de;
+@define-color subtext0   #a6adc8;
+@define-color overlay2   #9399b2;
+@define-color overlay1   #7f849c;
+@define-color overlay0   #6c7086;
+@define-color surface2   #585b70;
+@define-color surface1   #45475a;
+@define-color surface0   #313244;
+
+/* Catppuccin's Background Colors (Lightest to Darkest) */
+@define-color base       #1e1e2e;
+@define-color mantle     #181825;
+@define-color crust      #11111b;
 
 /* ---------- Bar Window Styling ---------- */
 window#waybar {
-  background-color: @bg;
+  background-color: @base;
   color: @text;
   border-radius: 0px;
   padding: 0px 0px;
@@ -47,7 +63,8 @@ window#waybar {
 #network,
 #backlight,
 #tray,
-#hyprland-window {
+#hyprland-window,
+#bluetooth {
   background-color: transparent; /* A common background for most modules */
   padding: 0px 7px; /* Consistent padding for all modules */
   margin: 0 0px; /* Spacing between modules */
@@ -96,7 +113,7 @@ window#waybar {
 #clock {
   color: @lavender;
   font-weight: bold;
-  font-size: 13px;
+  font-size: 14px;
   margin-left: 8px;
   margin-right: 8px;
 }
@@ -134,7 +151,7 @@ window#waybar {
 
 #pulseaudio,
 #pulseaudio#microphone {
-  color: @text;
+  color: #FCC6BB;
 }
 
 #pulseaudio.muted,
@@ -144,7 +161,7 @@ window#waybar {
 }
 
 #network {
-  color: @text;
+  color: @teal;
 }
 
 #network.disconnected {
@@ -153,6 +170,10 @@ window#waybar {
 
 #backlight {
   color: @yellow;
+}
+
+#bluetooth { /* <--- ADD THIS BLOCK */
+    color: @sapphire;
 }
 
 #tray {
