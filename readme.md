@@ -13,7 +13,8 @@ sudo pacman -S \
   waybar \
   kitty \
   rofi \
-  swww
+  swww \
+  swayosd
 ```
 
 Also, make a directory named `~/Pictures/wallpapers` and add some wallpapers in there for the swww script to work.
