@@ -57,7 +57,7 @@
     "interval": 1,
     //"format": "<span foreground='#f5c2e7'>   </span>{:%a %d %H:%M}"
     "format": " {:%H:%M | %a %b %d}",
-    "tooltip-format": "<big>{:%A, %B %d, %Y}</big>\n<small>{calendar}</small>", // Detailed tooltip for full date
+    "tooltip-format": "<tt>{calendar}</tt>", // Detailed tooltip for full date
     "calendar": {
       "mode": "month",
       "mode-mon-col": 3,
@@ -146,7 +146,7 @@
     "format-disconnected": "󰖪  No Network", // More descriptive message
     "tooltip": true,
     "tooltip-format": "IP: {ipaddr}\n {bandwidthDownBytes}  {bandwidthUpBytes}", // Detailed tooltip
-    "on-click": "nm-connection-editor" // Open network manager for easy configuration
+    "on-click": "kitty -e nmtui" // Open network manager for easy configuration
   },
 
 

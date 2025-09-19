@@ -86,7 +86,7 @@ window#waybar {
 
 #workspaces button {
   background-color: transparent;
-  color: @subtext;
+  color: @subtext1;
   padding: 0px 10px;
   border: none;
   min-width: 0; /* Allow buttons to be smaller */
