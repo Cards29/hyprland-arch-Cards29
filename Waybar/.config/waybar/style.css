@@ -151,7 +151,7 @@ window#waybar {
 
 #pulseaudio,
 #pulseaudio#microphone {
-  color: #FCC6BB;
+  color: @sky;
 }
 
 #pulseaudio.muted,
