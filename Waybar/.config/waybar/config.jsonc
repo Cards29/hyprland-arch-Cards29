@@ -20,6 +20,7 @@
     "pulseaudio",
     "backlight",
     "network",
+    "bluetooth",
     "battery"
     //"tray" // Tray usually goes last on the right
   ],
@@ -55,8 +56,8 @@
   "clock": {
     "interval": 1,
     //"format": "<span foreground='#f5c2e7'>   </span>{:%a %d %H:%M}"
-    "format": " {:%H:%M | %b %d}",
-    "tooltip-format": "<big>{:%A, %B %d, %Y}</big>\n<small>{calendar}</small>", // Detailed tooltip for full date
+    "format": " {:%H:%M | %a %b %d}",
+    "tooltip-format": "<tt>{calendar}</tt>", // Detailed tooltip for full date
     "calendar": {
       "mode": "month",
       "mode-mon-col": 3,
@@ -101,24 +102,41 @@
   },
 
   // --- Audio (Pulseaudio/Pipewire) ----------------------------------------
-  "pulseaudio": {
+"pulseaudio": {
     "format": "{icon} {volume}%",
-    "format-muted": "󰝟  Muted",
-    "on-click": "pamixer -t", // Toggle mute
-    "on-scroll-up": "pamixer -i 5", // Increase volume
-    "on-scroll-down": "pamixer -d 5", // Decrease volume
-    "format-icons": ["","",""], // Muted, low, high volume
+    "format-muted": "󰝟  Muted",
+    
+    // Left-Click: Open Volume Control GUI (Pavucontrol)
+    "on-click": "pavucontrol &", 
+    // Right-Click: Toggle Mute using swayosd-client
+    "on-click-right": "swayosd-client --output-volume mute-toggle", 
+    
+    // Scroll Up: Increase volume by 5 using swayosd-client
+    "on-scroll-up": "swayosd-client --output-volume +5", 
+    // Scroll Down: Decrease volume by 5 using swayosd-client
+    "on-scroll-down": "swayosd-client --output-volume -5", 
+    
+    "format-icons": ["","",""], 
     "tooltip": true
-  },
+},
 
-  "pulseaudio#microphone": {
+"pulseaudio#microphone": {
     "format": " {volume}%",
-    "format-source-muted": "  Muted",
-    "on-click": "pamixer --default-source -t", // Toggle microphone mute
-    "on-scroll-up": "pamixer --default-source -i 5", // Increase mic volume
-    "on-scroll-down": "pamixer --default-source -d 5", // Decrease mic volume
+    "format-source-muted": "  Muted",
+    
+    // Left-Click: Open Volume Control GUI (Pavucontrol)
+    "on-click": "pavucontrol &", 
+    // Right-Click: Toggle Mute using swayosd-client
+    "on-click-right": "swayosd-client --input-volume mute-toggle", 
+    
+    // Scroll Up: Increase mic volume by 5 (pamixer doesn't have a direct swayosd replacement here, so we keep pamixer)
+    "on-scroll-up": "pamixer --default-source -i 5", 
+    // Scroll Down: Decrease mic volume by 5 (pamixer doesn't have a direct swayosd replacement here, so we keep pamixer)
+    "on-scroll-down": "pamixer --default-source -d 5", 
+    
     "tooltip": true
-  },
+},
+
 
   // --- Network ------------------------------------------------------------
   "network": {
@@ -128,8 +146,40 @@
     "format-disconnected": "󰖪  No Network", // More descriptive message
     "tooltip": true,
     "tooltip-format": "IP: {ipaddr}\n {bandwidthDownBytes}  {bandwidthUpBytes}", // Detailed tooltip
-    "on-click": "nm-connection-editor" // Open network manager for easy configuration
+    "on-click": "kitty -e nmtui" // Open network manager for easy configuration
   },
+
+
+ // --- Bluetooth Module ---------------------------------------------------
+"bluetooth": {
+    "format": "󰂱 {status}",
+    "format-off": "󰂲 off",
+    "format-disabled": "󰂲 disabled",
+    "format-on": " on",
+    "on-click": "blueman-manager",
+    "on-click-right": "bash -c \"if rfkill list bluetooth | grep -q 'Soft blocked: yes'; then rfkill unblock bluetooth; elif bluetoothctl show | grep -q 'Powered: yes'; then bluetoothctl power off; else bluetoothctl power on; fi\"",
+    "tooltip": true,
+
+    "tooltip-format": "{controller_alias}\n{status}",
+    "tooltip-format-connected": "Connected Devices:\n{device_enumerate}",
+    
+    "tooltip-format-enumerate-connected": "  • {device_alias}", 
+    "tooltip-format-enumerate-connected-battery": "  • {device_alias} ({device_battery_percentage}%)",
+
+    "tooltip-format-powered": "Powered: {status}",
+    "tooltip-format-disabled": "Disabled: {status}"
+},
+
+// --- IMPORTANT NOTE: Bluetooth States ---
+//
+// The 'off' state is a soft power off using 'bluetoothctl power off'.
+// This is what happens when you turn Bluetooth off from a graphical menu.
+//
+// The 'disabled' state is a hard block using 'rfkill toggle bluetooth'. This physically disables
+// the Bluetooth radio and is not usually recommended for daily use.
+//
+// The `on-click-right` action now toggles between 'off' and 'on',
+// giving you the expected behavior.
 
   // --- Tray ---------------------------------------------------------------
   "tray": {
