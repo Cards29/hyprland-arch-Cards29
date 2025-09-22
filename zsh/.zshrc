@@ -110,10 +110,7 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# --------eza--------
-alias ls="eza -1 -l --git --color=always --icons=always --no-filesize --no-time --no-user --no-permissions"
 alias cd="z"
-
 
 # This is for yazi
 export EDITOR="nvim"
@@ -186,3 +183,16 @@ eval $(thefuck --alias fk)
 
 # ---- Zoxide (better cd) ----
 eval "$(zoxide init zsh)"
+
+# This for using eza and tree with ls
+unalias ls
+ls() {
+  if [[ "$1" == "-T" || "$1" == "--tree" ]]; then
+    shift
+    tree -C "$@"
+  else
+    command eza -l --git --color=always --icons=always \
+      --no-filesize --no-time --no-user --no-permissions "$@"
+  fi
+}
+
