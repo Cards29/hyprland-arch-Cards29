@@ -111,6 +111,8 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 alias cd="z"
+alias set="cd com & nvim _forProblemSolving.cpp"
+alias cses="nvim ~/Desktop/workspace/Competitive\ Programming/CP_CPP/CSES/"
 
 # This is for yazi
 export EDITOR="nvim"
@@ -196,4 +198,10 @@ ls() {
       --no-filesize --no-time --no-user --no-permissions "$@"
   fi
 }
+
+
+## [Completion]
+## Completion scripts setup. Remove the following line to uninstall
+[[ -f /home/arcane/.dart-cli-completion/zsh-config.zsh ]] && . /home/arcane/.dart-cli-completion/zsh-config.zsh || true
+## [/Completion]
 
