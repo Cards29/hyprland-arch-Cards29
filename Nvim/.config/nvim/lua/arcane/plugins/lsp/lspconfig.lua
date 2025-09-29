@@ -75,34 +75,6 @@ return {
 			capabilities = capabilities,
 		})
 
-		-- C++ / CLANGD Configuration (Resolving C++ Standard and Header issues)
-		-- This setup forces C++20 and helps clangd find the standard library headers
-		-- which is common issue on Arch/GCC setups without a compile_commands.json file.
-		vim.lsp.config("clangd", {
-			capabilities = capabilities,
-
-			-- Override the default clangd execution command to pass arguments
-			cmd = {
-				"clangd",
-
-				-- CRITICAL: Set the C++ standard to C++20 to enable modern features
-				-- like std::gcd, std::lcm, and other C++17/C++20 standards.
-				"-std=c++20",
-
-				-- Recommended: Manually point clangd to the standard library path.
-				-- This is crucial on Arch Linux when clangd struggles to find STL headers
-				-- without a project file.
-				-- IMPORTANT: Please run 'gcc --version' and change '13' below
-				-- if your installed GCC version is different (e.g., '14' or '12').
-				"-resource-dir=/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/",
-
-				-- Suppress warnings about using competitive programming practices
-				"-Wno-unknown-warning-option",
-				"-Wno-header-hygiene",
-			},
-			filetypes = { "c", "cpp", "cc", "cxx", "h", "hpp", "hxx" },
-		})
-
 		-- Svelte configuration
 		vim.lsp.config("svelte", {
 			on_attach = function(client, bufnr)
