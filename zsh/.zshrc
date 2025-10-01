@@ -111,7 +111,7 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 alias cd="z"
-alias set="cd com & nvim _forProblemSolving.cpp"
+alias cp="nvim ~/Desktop/workspace/Competitive\ Programming/forProblemSolving.cpp"
 alias cses="nvim ~/Desktop/workspace/Competitive\ Programming/CP_CPP/CSES/"
 
 # This is for yazi
