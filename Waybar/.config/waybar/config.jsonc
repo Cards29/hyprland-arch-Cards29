@@ -58,6 +58,7 @@
     //"format": "<span foreground='#f5c2e7'>   </span>{:%a %d %H:%M}"
     "format": " {:%H:%M | %a %b %d}",
     "tooltip-format": "<tt>{calendar}</tt>", // Detailed tooltip for full date
+    "on-click" : "kitty -e calcurse",
     "calendar": {
       "mode": "month",
       "mode-mon-col": 3,

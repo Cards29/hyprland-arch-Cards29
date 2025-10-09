@@ -85,6 +85,8 @@ source $ZSH/oh-my-zsh.sh
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
+export PATH="/home/arcane/.local/share/JetBrains/Toolbox/scripts:$PATH"
+
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
@@ -113,6 +115,28 @@ source $ZSH/oh-my-zsh.sh
 alias cd="z"
 alias asdf="nvim ~/Desktop/workspace/Competitive\ Programming/forProblemSolving.cpp"
 alias cses="nvim ~/Desktop/workspace/Competitive\ Programming/CP_CPP/CSES/"
+
+# Custom Help command
+h() {
+    CYAN="\033[1;36m"
+    GREEN="\033[1;32m"
+    RESET="\033[0m"
+
+    echo -e "${CYAN}=== Help Menu ===${RESET}"
+    echo -e "${GREEN}1)${RESET} Termninal keybindings"
+    echo -e "${GREEN}2)${RESET} Tmux keybindings"
+    echo -e "${GREEN}3)${RESET} Exit"
+    echo
+    read -p "Choose an option: " choice
+
+    case $choice in
+        1) ~/scripts/cl-shortcuts.sh ;;
+        2) ~/scripts/tmux_cheatsheet.sh ;;
+        3) echo "Goodbye!" ;;
+        *) echo "Invalid choice." ;;
+    esac
+}
+
 
 # This is for yazi
 export EDITOR="nvim"
@@ -205,3 +229,5 @@ ls() {
 [[ -f /home/arcane/.dart-cli-completion/zsh-config.zsh ]] && . /home/arcane/.dart-cli-completion/zsh-config.zsh || true
 ## [/Completion]
 
+
+. "$HOME/.cargo/env"
